@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: tripsync-postgres
+    environment:
+      POSTGRES_DB: tripsync_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - tripsync-network
+    restart: unless-stopped
+
+  # Backend API
+  backend:
+    build: .
+    container_name: tripsync-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: tripsync_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres123
+      JWT_SECRET: your_super_secret_jwt_key_change_this_in_production
+      JWT_EXPIRES_IN: 7d
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - tripsync-network
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  # pgAdmin (optional - for database management)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: tripsync-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@tripsync.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - tripsync-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  tripsync-network:
+    driver: bridge

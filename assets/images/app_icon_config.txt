@@ -1,0 +1,1 @@
+Run flutter pub run flutter_launcher_icons to generate icons.
