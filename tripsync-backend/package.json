@@ -16,7 +16,8 @@
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f backend",
     "setup": "npm install && npm run migrate && npm run seed",
-    "postinstall": "npm run migrate"
+    "postinstall": "npm run migrate",
+    "build": "echo 'Build completed'"
   },
   "keywords": [
     "api",
@@ -24,8 +25,10 @@
     "tripsync",
     "travel"
   ],
-  "author": "",
-  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",
