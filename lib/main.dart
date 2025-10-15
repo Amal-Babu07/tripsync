@@ -747,7 +747,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         final response = await http.post(
-          Uri.parse('https://tripsync-backend-53oj.onrender.com/api/auth/login'),
+          Uri.parse('http://192.168.4.218:3000/api/auth/login'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': _emailController.text.trim(),
@@ -1193,7 +1193,7 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
     if (_formKey.currentState!.validate() && _agreeToTerms) {
       try {
         final response = await http.post(
-          Uri.parse('https://tripsync-backend-53oj.onrender.com/api/auth/register'),
+          Uri.parse('http://192.168.4.218:3000/api/auth/register'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': _emailController.text.trim(),
@@ -1657,7 +1657,7 @@ class _DriverRegistrationScreenState extends State<DriverRegistrationScreen> {
     if (_formKey.currentState!.validate() && _agreeToTerms) {
       try {
         final response = await http.post(
-          Uri.parse('https://tripsync-backend-53oj.onrender.com/api/auth/register'),
+          Uri.parse('http://192.168.4.218:3000/api/auth/register'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': _emailController.text.trim(),
@@ -3929,7 +3929,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Future<void> _fetchUsers() async {
     try {
       final response = await http.get(
-        Uri.parse('https://tripsync-backend-53oj.onrender.com/api/users'),
+        Uri.parse('http://192.168.4.218:3000/api/users'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -4712,7 +4712,7 @@ class _ManageStudentsScreenState extends State<ManageStudentsScreen> {
   Future<void> _fetchStudents() async {
     try {
       final response = await http.get(
-        Uri.parse('https://tripsync-backend-53oj.onrender.com/api/users'),
+        Uri.parse('http://192.168.4.218:3000/api/users'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -5301,7 +5301,7 @@ class _ManageDriversScreenState extends State<ManageDriversScreen> {
   Future<void> _fetchDrivers() async {
     try {
       final response = await http.get(
-        Uri.parse('https://tripsync-backend-53oj.onrender.com/api/users'),
+        Uri.parse('http://192.168.4.218:3000/api/users'),
         headers: {'Content-Type': 'application/json'},
       );
 
