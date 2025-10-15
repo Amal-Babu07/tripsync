@@ -10,7 +10,7 @@ class ApiService {
   // iOS Simulator: http://localhost:3000
   // Real Device (same WiFi): http://YOUR_LOCAL_IP:3000
   // Windows local development: http://localhost:3000
-  static const String baseUrl = 'http://192.168.4.218:3000/api';
+  static const String baseUrl = 'https://tripsync-backend-53oj.onrender.com/api';
   
   // Get stored token
   static Future<String?> getToken() async {

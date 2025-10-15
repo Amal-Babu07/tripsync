@@ -1,28 +1,18 @@
-# Use the official Node.js runtime as the base image
 FROM node:18-alpine
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json from backend directory
+# Copy backend package files
 COPY tripsync-backend/package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm install --production
 
-# Copy the backend application code
+# Copy backend source code
 COPY tripsync-backend/ ./
 
-# Create a non-root user to run the application
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nodejs -u 1001
+# Expose port
+EXPOSE $PORT
 
-# Change ownership of the app directory to the nodejs user
-RUN chown -R nodejs:nodejs /app
-USER nodejs
-
-# Expose the port the app runs on
-EXPOSE 10000
-
-# Define the command to run the application
+# Start the application
 CMD ["npm", "start"]

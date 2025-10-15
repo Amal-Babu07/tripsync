@@ -1,42 +1,12 @@
 services:
-  # PostgreSQL Database
-  - type: pserv
-    name: tripsync-database
-    env: node
-    plan: free
-    databaseName: tripsync_db
-    user: tripsync_user
-
   # Backend API Service
   - type: web
     name: tripsync-backend
-    env: node
+    env: docker
+    dockerfilePath: ./Dockerfile
     plan: free
-    buildCommand: cd tripsync-backend && npm install
-    startCommand: cd tripsync-backend && npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
-      - key: DATABASE_URL
-        fromDatabase:
-          name: tripsync-database
-          property: connectionString
-      - key: JWT_SECRET
-        generateValue: true
     autoDeploy: true
-
-  # Flutter Web Static Site
-  - type: static
-    name: tripsync-web
-    buildCommand: flutter build web --release
-    staticPublishPath: ./build/web
-    envVars:
-      - key: FLUTTER_WEB
-        value: true
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html

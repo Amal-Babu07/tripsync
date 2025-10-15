@@ -16,7 +16,6 @@
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f backend",
     "setup": "npm install && npm run migrate && npm run seed",
-    "postinstall": "npm run migrate",
     "build": "echo 'Build completed'"
   },
   "keywords": [
